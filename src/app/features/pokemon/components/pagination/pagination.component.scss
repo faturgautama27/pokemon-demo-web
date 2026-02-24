@@ -1,0 +1,55 @@
+/**
+ * PaginationComponent Styles
+ * 
+ * Styles for pagination navigation buttons with active, inactive, and disabled states.
+ */
+
+.pagination-button {
+    // Base button styles
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem; // 40px
+    height: 2.5rem; // 40px
+    padding: 0.5rem 0.75rem; // py-2 px-3
+    border-radius: 0.5rem; // rounded-lg
+    font-size: 0.875rem; // text-sm
+    font-weight: 500; // font-medium
+    border: none;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+
+    // Default/Inactive state
+    background-color: transparent;
+    color: #374151;
+
+    &:hover:not(.disabled):not(.active) {
+        background-color: #F3F4F6;
+    }
+
+    &:focus-visible {
+        outline: 2px solid #3B82F6;
+        outline-offset: 2px;
+    }
+
+    // Active state (current page)
+    &.active {
+        background-color: #3B82F6;
+        color: #FFFFFF;
+        cursor: default;
+    }
+
+    // Disabled state
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    // Icon alignment
+    lucide-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

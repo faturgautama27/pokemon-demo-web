@@ -1,0 +1,26 @@
+<nav class="flex justify-center items-center" aria-label="Pagination navigation">
+    <div class="flex gap-2">
+        <!-- Previous Button -->
+        <button type="button" (click)="onPrevious()" [disabled]="isPrevDisabled()"
+            [attr.aria-disabled]="isPrevDisabled()" aria-label="Previous page" class="pagination-button"
+            [class.disabled]="isPrevDisabled()">
+            <lucide-icon [img]="ArrowLeft" [size]="16"></lucide-icon>
+        </button>
+
+        <!-- Page Number Buttons -->
+        @for (page of visiblePages; track $index) {
+        <button type="button" (click)="onPageChange(page)" [disabled]="isCurrentPage(page)"
+            [attr.aria-current]="isCurrentPage(page) ? 'page' : null" [attr.aria-disabled]="isCurrentPage(page)"
+            [attr.aria-label]="'Page ' + page" class="pagination-button" [class.active]="isCurrentPage(page)"
+            [class.disabled]="isCurrentPage(page)">
+            {{ page }}
+        </button>
+        }
+
+        <!-- Next Button -->
+        <button type="button" (click)="onNext()" [disabled]="isNextDisabled()" [attr.aria-disabled]="isNextDisabled()"
+            aria-label="Next page" class="pagination-button" [class.disabled]="isNextDisabled()">
+            <lucide-icon [img]="ArrowRight" [size]="16"></lucide-icon>
+        </button>
+    </div>
+</nav>
