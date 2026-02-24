@@ -1,0 +1,76 @@
+/**
+ * PokemonListComponent Styles
+ * 
+ * Styles for the main Pokemon list container including:
+ * - Container gradient background
+ * - Skeleton loader shimmer animation
+ * - Error state styling
+ * - Responsive spacing and padding
+ */
+
+.pokemon-list-container {
+    min-height: 100vh;
+}
+
+// Skeleton Loader Shimmer Animation
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton-card {
+
+    .skeleton-image,
+    .skeleton-number,
+    .skeleton-name,
+    .skeleton-types>div,
+    .skeleton-stats>div {
+        background: linear-gradient(90deg,
+                #f0f0f0 25%,
+                #e0e0e0 50%,
+                #f0f0f0 75%);
+        background-size: 1000px 100%;
+        animation: shimmer 2s infinite;
+    }
+}
+
+// Error Container Styling
+.error-container {
+    svg {
+        filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.1));
+    }
+}
+
+// Retry Button Hover Effect
+.retry-button {
+    transition: all 200ms ease-in-out;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// Responsive Spacing
+@media (max-width: 640px) {
+    .pokemon-list-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .pokemon-list-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}

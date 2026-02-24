@@ -5,6 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { provideStore } from '@ngxs/store';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
+import { PokemonState } from './features/pokemon/store/pokemon.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,6 @@ export const appConfig: ApplicationConfig = {
         preset: Aura
       },
     }),
-    provideStore([], withNgxsReduxDevtoolsPlugin()),
+    provideStore([PokemonState], withNgxsReduxDevtoolsPlugin()),
   ]
 };
