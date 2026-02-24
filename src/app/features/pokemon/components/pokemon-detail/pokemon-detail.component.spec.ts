@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PokemonDetailComponent } from './pokemon-detail.component';
 import { Pokemon } from '../../../../core/models/pokemon.model';
-import { DebugElement, provideZoneChangeDetection } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { provideZoneChangeDetection } from '@angular/core';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 describe('PokemonDetailComponent', () => {
     let component: PokemonDetailComponent;
@@ -31,7 +31,10 @@ describe('PokemonDetailComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [PokemonDetailComponent],
-            providers: [provideZoneChangeDetection({ eventCoalescing: true })]
+            providers: [
+                provideZoneChangeDetection({ eventCoalescing: true }),
+                provideNoopAnimations()
+            ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(PokemonDetailComponent);
