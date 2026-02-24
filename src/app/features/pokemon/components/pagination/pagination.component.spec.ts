@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { provideZoneChangeDetection } from '@angular/core';
 import { PaginationComponent } from './pagination.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -11,7 +11,7 @@ describe('PaginationComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [PaginationComponent],
-            providers: [provideZonelessChangeDetection()]
+            providers: [provideZoneChangeDetection({ eventCoalescing: true })]
         }).compileComponents();
 
         fixture = TestBed.createComponent(PaginationComponent);

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { provideZoneChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
-import { provideZonelessChangeDetection } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { PokemonState, PokemonStateModel } from './pokemon.state';
 import { PokemonActions } from './pokemon.actions';
@@ -77,7 +77,7 @@ describe('PokemonState', () => {
                 PokemonApiService,
                 provideHttpClient(),
                 provideHttpClientTesting(),
-                provideZonelessChangeDetection()
+                provideZoneChangeDetection({ eventCoalescing: true })
             ]
         });
 

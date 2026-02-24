@@ -1,4 +1,4 @@
-import { provideZonelessChangeDetection } from '@angular/core';
+import { provideZoneChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
@@ -16,7 +16,7 @@ describe('PokemonApiService', () => {
                 PokemonApiService,
                 provideHttpClient(),
                 provideHttpClientTesting(),
-                provideZonelessChangeDetection()
+                provideZoneChangeDetection({ eventCoalescing: true })
             ]
         });
         service = TestBed.inject(PokemonApiService);
