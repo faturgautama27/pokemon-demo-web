@@ -12,7 +12,8 @@ import { Pokemon } from '../../../../core/models/pokemon.model';
     selector: 'app-pokemon-card',
     standalone: true,
     imports: [CommonModule],
-    templateUrl: './pokemon-card.component.html'
+    templateUrl: './pokemon-card.component.html',
+    styleUrls: ['./pokemon-card.component.scss']
 })
 export class PokemonCardComponent {
     @Input() pokemon!: Pokemon;
