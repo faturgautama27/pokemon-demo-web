@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, forkJoin, of, mergeMap } from 'rxjs';
-import { map, catchError, retry, delay } from 'rxjs/operators';
+import { Observable, throwError, forkJoin, of } from 'rxjs';
+import { map, catchError, retry, delay, toArray, concatMap } from 'rxjs/operators';
 import { Pokemon, capitalizeName, formatPokemonNumber } from '../models/pokemon.model';
 import { PokemonDetailResponse, PokemonBasic } from '../models/api-response.model';
 
@@ -79,25 +79,14 @@ export class PokemonApiService {
 
         // Process chunks sequentially, but requests within each chunk in parallel
         return of(...chunks).pipe(
-            mergeMap(chunk => {
+            concatMap(chunk => {
                 const requests = chunk.map(id => this.getPokemonDetail(id));
                 return forkJoin(requests);
-            }, 1), // Process one chunk at a time
+            }),
+            // Collect all chunk results into a single array
+            toArray(),
             // Flatten the array of arrays into a single array
-            map((results, index) => results),
-            // Collect all results
-            mergeMap((chunkResults, index) => {
-                if (index === chunks.length - 1) {
-                    // Last chunk, return all accumulated results
-                    return of(chunkResults);
-                }
-                return of(chunkResults);
-            })
-        ).pipe(
-            // Collect all chunks into a single array
-            mergeMap(results => of(results)),
-            // Flatten nested arrays
-            map(results => results.flat ? results.flat() : results)
+            map(results => results.flat())
         );
     }
 
