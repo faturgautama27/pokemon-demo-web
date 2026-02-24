@@ -15,7 +15,6 @@ import { Pokemon } from '../../../core/models/pokemon.model';
 export namespace PokemonActions {
     /**
      * Load a specific page of Pokemon
-     * Validates: Requirements 1.4, 3.8, 3.9, 3.10
      */
     export class LoadPage {
         static readonly type = '[Pokemon] Load Page';
@@ -24,7 +23,6 @@ export namespace PokemonActions {
 
     /**
      * Successfully loaded Pokemon page
-     * Validates: Requirements 1.4, 4.1
      */
     export class LoadPageSuccess {
         static readonly type = '[Pokemon] Load Page Success';
@@ -33,7 +31,6 @@ export namespace PokemonActions {
 
     /**
      * Failed to load Pokemon page
-     * Validates: Requirements 5.1, 5.3
      */
     export class LoadPageFailure {
         static readonly type = '[Pokemon] Load Page Failure';
@@ -42,7 +39,6 @@ export namespace PokemonActions {
 
     /**
      * Select a Pokemon to view details
-     * Validates: Requirements 4.1, 4.10
      */
     export class SelectPokemon {
         static readonly type = '[Pokemon] Select Pokemon';
@@ -51,7 +47,6 @@ export namespace PokemonActions {
 
     /**
      * Deselect Pokemon and close detail view
-     * Validates: Requirements 4.10
      */
     export class DeselectPokemon {
         static readonly type = '[Pokemon] Deselect Pokemon';
@@ -59,7 +54,6 @@ export namespace PokemonActions {
 
     /**
      * Retry loading the current page after an error
-     * Validates: Requirements 5.3
      */
     export class RetryLoad {
         static readonly type = '[Pokemon] Retry Load';

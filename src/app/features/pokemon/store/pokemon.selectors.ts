@@ -14,7 +14,6 @@ import { Pokemon } from '../../../core/models/pokemon.model';
 export class PokemonSelectors {
     /**
      * Get current page number
-     * Validates: Requirements 1.1, 1.2
      */
     @Selector([PokemonState])
     static currentPage(state: PokemonStateModel): number {
@@ -23,7 +22,6 @@ export class PokemonSelectors {
 
     /**
      * Get total number of pages
-     * Validates: Requirements 1.1, 1.2
      */
     @Selector([PokemonState])
     static totalPages(state: PokemonStateModel): number {
@@ -32,7 +30,6 @@ export class PokemonSelectors {
 
     /**
      * Get current page Pokemon list
-     * Validates: Requirements 1.1, 1.2, 1.3
      */
     @Selector([PokemonState])
     static pokemonList(state: PokemonStateModel): Pokemon[] {
@@ -41,7 +38,6 @@ export class PokemonSelectors {
 
     /**
      * Get loading state
-     * Validates: Requirements 1.5
      */
     @Selector([PokemonState])
     static loading(state: PokemonStateModel): boolean {
@@ -50,7 +46,6 @@ export class PokemonSelectors {
 
     /**
      * Get error state
-     * Validates: Requirements 5.1
      */
     @Selector([PokemonState])
     static error(state: PokemonStateModel): string | null {
@@ -60,7 +55,6 @@ export class PokemonSelectors {
     /**
      * Get selected Pokemon for detail view
      * Returns null if no Pokemon is selected
-     * Validates: Requirements 4.1, 4.10
      */
     @Selector([PokemonState])
     static selectedPokemon(state: PokemonStateModel): Pokemon | null {
@@ -72,7 +66,6 @@ export class PokemonSelectors {
 
     /**
      * Check if detail view should be visible
-     * Validates: Requirements 4.1, 4.10
      */
     @Selector([PokemonState])
     static isDetailVisible(state: PokemonStateModel): boolean {

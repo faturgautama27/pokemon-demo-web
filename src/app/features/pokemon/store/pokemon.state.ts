@@ -55,7 +55,6 @@ export class PokemonState {
     /**
      * Load a page of Pokemon
      * Calculates offset as (page - 1) * 10
-     * Validates: Requirements 1.1, 1.2, 1.3, 1.4, 1.5
      */
     @Action(PokemonActions.LoadPage)
     loadPage(ctx: StateContext<PokemonStateModel>, action: PokemonActions.LoadPage) {
@@ -101,7 +100,6 @@ export class PokemonState {
 
     /**
      * Handle successful page load
-     * Validates: Requirements 1.4, 4.1
      */
     @Action(PokemonActions.LoadPageSuccess)
     loadPageSuccess(ctx: StateContext<PokemonStateModel>, action: PokemonActions.LoadPageSuccess) {
@@ -115,7 +113,6 @@ export class PokemonState {
 
     /**
      * Handle page load failure
-     * Validates: Requirements 5.1, 5.3
      */
     @Action(PokemonActions.LoadPageFailure)
     loadPageFailure(ctx: StateContext<PokemonStateModel>, action: PokemonActions.LoadPageFailure) {
@@ -127,7 +124,6 @@ export class PokemonState {
 
     /**
      * Select a Pokemon to view details
-     * Validates: Requirements 4.1, 4.10
      */
     @Action(PokemonActions.SelectPokemon)
     selectPokemon(ctx: StateContext<PokemonStateModel>, action: PokemonActions.SelectPokemon) {
@@ -138,7 +134,6 @@ export class PokemonState {
 
     /**
      * Deselect Pokemon and close detail view
-     * Validates: Requirements 4.10
      */
     @Action(PokemonActions.DeselectPokemon)
     deselectPokemon(ctx: StateContext<PokemonStateModel>) {
@@ -149,7 +144,6 @@ export class PokemonState {
 
     /**
      * Retry loading the current page
-     * Validates: Requirements 5.3
      */
     @Action(PokemonActions.RetryLoad)
     retryLoad(ctx: StateContext<PokemonStateModel>) {
