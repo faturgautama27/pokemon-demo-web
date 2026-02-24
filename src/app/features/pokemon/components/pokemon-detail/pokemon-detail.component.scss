@@ -1,0 +1,243 @@
+/**
+ * PokemonDetailComponent Styles
+ * 
+ * Modal dialog styles with animations, backdrop effects, and responsive design
+ */
+
+/* Override PrimeNG Dialog styles */
+:host ::ng-deep {
+
+    /* Dialog container */
+    .pokemon-detail-dialog {
+        width: 90vw;
+        max-width: 600px;
+        border-radius: 1rem;
+        overflow: hidden;
+
+        @media (max-width: 768px) {
+            width: 95vw;
+            max-width: none;
+        }
+    }
+
+    /* Dialog mask (backdrop) */
+    .p-dialog-mask {
+        backdrop-filter: blur(4px);
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Dialog content */
+    .p-dialog {
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Entrance animation */
+    .p-dialog-mask.p-component-overlay-enter {
+        animation: fadeIn 200ms ease-out;
+    }
+
+    .p-dialog-mask.p-component-overlay-enter .p-dialog {
+        animation: modalEnter 200ms ease-out;
+    }
+
+    /* Exit animation */
+    .p-dialog-mask.p-component-overlay-leave {
+        animation: fadeOut 200ms ease-in;
+    }
+
+    .p-dialog-mask.p-component-overlay-leave .p-dialog {
+        animation: modalExit 200ms ease-in;
+    }
+
+    /* Header */
+    .p-dialog-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* Content */
+    .pokemon-detail-content {
+        padding: 1.5rem;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}
+
+/* Close button */
+.close-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+
+    &:hover {
+        background: #f3f4f6;
+        color: #111827;
+        transform: scale(1.1);
+    }
+
+    &:focus {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+    }
+}
+
+/* Pokemon detail body */
+.pokemon-detail-body {
+    color: #111827;
+}
+
+/* Basic info section */
+.basic-info-section {
+    h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.75rem;
+    }
+}
+
+/* Abilities section */
+.abilities-section {
+    h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.75rem;
+    }
+}
+
+.ability-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    &.hidden-ability {
+        background: #fef3c7;
+        color: #92400e;
+    }
+}
+
+/* Moves section */
+.moves-section {
+    h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.75rem;
+    }
+}
+
+.moves-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+
+    /* Custom scrollbar */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f3f4f6;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 4px;
+
+        &:hover {
+            background: #9ca3af;
+        }
+    }
+}
+
+.move-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-bottom: 1px solid #f3f4f6;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover {
+        background: #f9fafb;
+    }
+}
+
+.move-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #111827;
+}
+
+.move-method {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-transform: capitalize;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes modalExit {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
