@@ -1,14 +1,16 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { Pokemon } from '../../../../core/models/pokemon.model';
+import { Store } from '@ngxs/store';
+import { PokemonSelectors } from '../../store/pokemon.selectors';
 
 /**
  * PokemonDetailComponent
  * 
- * Modal dialog displaying comprehensive Pokemon information.
- * Shows abilities, moves, and all basic stats in a scrollable container.
+ * Simple modal dialog displaying Pokemon information.
+ * Shows basic details, abilities, and moves in a clean layout.
  */
 @Component({
     selector: 'app-pokemon-detail',
@@ -18,9 +20,13 @@ import { Pokemon } from '../../../../core/models/pokemon.model';
     styleUrls: ['./pokemon-detail.component.scss']
 })
 export class PokemonDetailComponent {
-    @Input() pokemon: Pokemon | null = null;
     @Input() visible: boolean = false;
     @Output() close = new EventEmitter<void>();
+
+    cdr = inject(ChangeDetectorRef);
+    store = inject(Store);
+
+    pokemon = this.store.select(PokemonSelectors.selectedPokemon);
 
     // Lucide icons
     readonly X = X;
@@ -40,7 +46,7 @@ export class PokemonDetailComponent {
     }
 
     /**
-     * Get Tailwind background color class for Pokemon type
+     * Get background color class for Pokemon type
      */
     getTypeColorClass(type: string): string {
         const typeColors: { [key: string]: string } = {

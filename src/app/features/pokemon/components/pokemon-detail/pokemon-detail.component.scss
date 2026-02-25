@@ -1,13 +1,9 @@
 /**
- * PokemonDetailComponent Styles
- * 
- * Modal dialog styles with animations, backdrop effects, and responsive design
+ * PokemonDetailComponent Styles - Simple & Clean
  */
 
 /* Override PrimeNG Dialog styles */
 :host ::ng-deep {
-
-    /* Dialog container */
     .pokemon-detail-dialog {
         width: 90vw;
         max-width: 600px;
@@ -16,73 +12,95 @@
 
         @media (max-width: 768px) {
             width: 95vw;
-            max-width: none;
         }
     }
 
-    /* Dialog mask (backdrop) */
     .p-dialog-mask {
         backdrop-filter: blur(4px);
         background-color: rgba(0, 0, 0, 0.5);
     }
 
-    /* Dialog content */
     .p-dialog {
         background: white;
         border-radius: 1rem;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
-    /* Entrance animation */
-    .p-dialog-mask.p-component-overlay-enter {
-        animation: fadeIn 200ms ease-out;
-    }
-
-    .p-dialog-mask.p-component-overlay-enter .p-dialog {
-        animation: modalEnter 200ms ease-out;
-    }
-
-    /* Exit animation */
-    .p-dialog-mask.p-component-overlay-leave {
-        animation: fadeOut 200ms ease-in;
-    }
-
-    .p-dialog-mask.p-component-overlay-leave .p-dialog {
-        animation: modalExit 200ms ease-in;
-    }
-
-    /* Header */
     .p-dialog-header {
-        padding: 1.5rem;
-        border-bottom: 1px solid #e5e7eb;
+        padding: 0;
+        border-bottom: none;
+        background: transparent;
     }
 
-    /* Content */
     .pokemon-detail-content {
-        padding: 1.5rem;
-        max-height: 70vh;
+        padding: 0;
+        max-height: 80vh;
         overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+
+            &:hover {
+                background: #555;
+            }
+        }
     }
 }
 
-/* Close button */
+// Dialog Header
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.pokemon-number {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.pokemon-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    text-transform: capitalize;
+    margin: 0;
+}
+
 .close-button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 2rem;
     height: 2rem;
-    border-radius: 0.5rem;
+    border-radius: 50%;
     background: transparent;
     border: none;
     color: #6b7280;
     cursor: pointer;
-    transition: all 200ms ease-in-out;
+    transition: all 0.2s;
 
     &:hover {
         background: #f3f4f6;
         color: #111827;
-        transform: scale(1.1);
     }
 
     &:focus {
@@ -91,77 +109,140 @@
     }
 }
 
-/* Pokemon detail body */
+// Pokemon Detail Body
 .pokemon-detail-body {
+    padding: 1.5rem;
+}
+
+// Image Section
+.image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.pokemon-image {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+// Types Section
+.types-section {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.type-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+}
+
+// Info Section
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.info-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.info-value {
+    font-size: 1.25rem;
+    font-weight: 700;
     color: #111827;
 }
 
-/* Basic info section */
-.basic-info-section {
-    h3 {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #111827;
-        margin-bottom: 0.75rem;
-    }
+// Section
+.section {
+    margin-bottom: 1.5rem;
 }
 
-/* Abilities section */
-.abilities-section {
-    h3 {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #111827;
-        margin-bottom: 0.75rem;
-    }
+.section-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.75rem;
 }
 
-.ability-badge {
-    display: inline-flex;
+// Abilities List
+.abilities-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ability-item {
+    display: flex;
     align-items: center;
-    padding: 0.5rem 1rem;
-    background: #dbeafe;
-    color: #1e40af;
-    border-radius: 9999px;
-    font-size: 0.875rem;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    text-transform: capitalize;
     font-weight: 500;
-
-    &.hidden-ability {
-        background: #fef3c7;
-        color: #92400e;
-    }
+    color: #6b7280;
 }
 
-/* Moves section */
-.moves-section {
-    h3 {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #111827;
-        margin-bottom: 0.75rem;
-    }
+.hidden-badge {
+    padding: 0.25rem 0.5rem;
+    background: #fbbf24;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
 }
 
-.moves-container {
+// Moves List
+.moves-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     max-height: 300px;
     overflow-y: auto;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
+    padding-right: 0.5rem;
+    color: #6b7280;
 
-    /* Custom scrollbar */
     &::-webkit-scrollbar {
-        width: 8px;
+        width: 6px;
     }
 
     &::-webkit-scrollbar-track {
-        background: #f3f4f6;
-        border-radius: 4px;
+        background: #f1f1f1;
+        border-radius: 3px;
     }
 
     &::-webkit-scrollbar-thumb {
         background: #d1d5db;
-        border-radius: 4px;
+        border-radius: 3px;
 
         &:hover {
             background: #9ca3af;
@@ -170,74 +251,69 @@
 }
 
 .move-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem;
-    border-bottom: 1px solid #f3f4f6;
-
-    &:last-child {
-        border-bottom: none;
-    }
-
-    &:hover {
-        background: #f9fafb;
-    }
-}
-
-.move-name {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #111827;
-}
-
-.move-method {
-    font-size: 0.75rem;
-    color: #6b7280;
+    padding: 0.5rem 0.75rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
     text-transform: capitalize;
+    font-size: 0.875rem;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+// Responsive Design
+@media (max-width: 640px) {
+    .dialog-header {
+        padding: 1rem;
     }
 
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
+    .pokemon-title {
+        font-size: 1.25rem;
     }
 
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes modalEnter {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
+    .pokemon-detail-body {
+        padding: 1rem;
     }
 
-    to {
-        opacity: 1;
-        transform: scale(1);
+    .pokemon-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .info-section {
+        grid-template-columns: 1fr;
     }
 }
 
-@keyframes modalExit {
-    from {
-        opacity: 1;
-        transform: scale(1);
+// Skeleton Loading Styles
+.skeleton-text {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-image-large {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+.skeleton-badge {
+    width: 80px;
+    height: 32px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 9999px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
     }
 
-    to {
-        opacity: 0;
-        transform: scale(0.95);
+    100% {
+        background-position: -200% 0;
     }
 }

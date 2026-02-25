@@ -1,69 +1,148 @@
-<!-- Pokemon List Container -->
-<div class="pokemon-list-container min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 px-4">
-    <div class="max-w-7xl mx-auto">
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900 mb-2">Pokemon Demo</h1>
-            <p class="text-gray-600">Explore Pokemon from Region 1 (#001 - #151)</p>
-        </header>
+<div class="pokemon-list-container">
+    <!-- Header -->
+    <header class="header">
+        <h1 class="title">Pokémon Demo</h1>
+        <p class="subtitle">by Company ABCD</p>
+    </header>
 
-        <!-- Loading State - Skeleton Loaders -->
-        <div *ngIf="loading$ | async"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-8"
-            role="status" aria-live="polite" aria-label="Loading Pokemon">
-            <div *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]"
-                class="skeleton-card bg-white rounded-xl shadow-md p-4 animate-pulse">
-                <div class="skeleton-image bg-gray-200 rounded-lg mb-3" style="height: 150px;"></div>
-                <div class="skeleton-number bg-gray-200 rounded h-4 w-16 mb-1 mx-auto"></div>
-                <div class="skeleton-name bg-gray-200 rounded h-6 w-32 mb-2 mx-auto"></div>
-                <div class="skeleton-types flex gap-2 mb-3 justify-center">
-                    <div class="bg-gray-200 rounded-full h-6 w-20"></div>
-                </div>
-                <div class="skeleton-stats flex justify-around gap-4">
-                    <div class="bg-gray-200 rounded h-4 w-16"></div>
-                    <div class="bg-gray-200 rounded h-4 w-16"></div>
-                </div>
+    <!-- Main Content with Sidebar -->
+    <div class="main-content">
+        <!-- Sidebar Filter -->
+        <aside class="sidebar">
+            <h2 class="filter-title">Filter by Type</h2>
+            <div class="filter-list">
+                <button class="filter-button" [class.active]="(selectedType$ | async) === null"
+                    (click)="onFilterType(null)">
+                    All
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'fire'"
+                    (click)="onFilterType('fire')">
+                    Fire
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'water'"
+                    (click)="onFilterType('water')">
+                    Water
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'grass'"
+                    (click)="onFilterType('grass')">
+                    Grass
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'electric'"
+                    (click)="onFilterType('electric')">
+                    Electric
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'psychic'"
+                    (click)="onFilterType('psychic')">
+                    Psychic
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'ice'"
+                    (click)="onFilterType('ice')">
+                    Ice
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'dragon'"
+                    (click)="onFilterType('dragon')">
+                    Dragon
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'dark'"
+                    (click)="onFilterType('dark')">
+                    Dark
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'fairy'"
+                    (click)="onFilterType('fairy')">
+                    Fairy
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'normal'"
+                    (click)="onFilterType('normal')">
+                    Normal
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'fighting'"
+                    (click)="onFilterType('fighting')">
+                    Fighting
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'flying'"
+                    (click)="onFilterType('flying')">
+                    Flying
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'poison'"
+                    (click)="onFilterType('poison')">
+                    Poison
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'ground'"
+                    (click)="onFilterType('ground')">
+                    Ground
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'rock'"
+                    (click)="onFilterType('rock')">
+                    Rock
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'bug'"
+                    (click)="onFilterType('bug')">
+                    Bug
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'ghost'"
+                    (click)="onFilterType('ghost')">
+                    Ghost
+                </button>
+                <button class="filter-button" [class.active]="(selectedType$ | async) === 'steel'"
+                    (click)="onFilterType('steel')">
+                    Steel
+                </button>
             </div>
-        </div>
+        </aside>
 
-        <!-- Error State -->
-        <div *ngIf="(error$ | async) && !(loading$ | async)" class="error-container text-center py-12" role="alert"
-            aria-live="assertive">
-            <div class="bg-red-50 border border-red-200 rounded-xl p-8 max-w-md mx-auto">
-                <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
-                    </path>
-                </svg>
-                <h2 class="text-xl font-bold text-gray-900 mb-2">Oops! Something went wrong</h2>
-                <p class="text-gray-700 mb-6">{{ error$ | async }}</p>
-                <button (click)="onRetry()"
-                    class="retry-button bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    aria-label="Retry loading Pokemon">
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Loading State -->
+            @if (loading$ | async) {
+            <div class="grid" role="status" aria-live="polite" aria-label="Loading Pokemon">
+                @for (i of [1,2,3,4,5,6,7,8,9,10]; track i) {
+                <div class="skeleton-card">
+                    <div class="skeleton-image"></div>
+                    <div class="skeleton-number"></div>
+                    <div class="skeleton-name"></div>
+                    <div class="skeleton-types">
+                        <div class="skeleton-badge"></div>
+                        <div class="skeleton-badge"></div>
+                    </div>
+                    <div class="skeleton-stats">
+                        <div class="skeleton-stat"></div>
+                        <div class="skeleton-stat"></div>
+                    </div>
+                </div>
+                }
+            </div>
+            }
+
+            <!-- Error State -->
+            @if ((error$ | async) && !(loading$ | async)) {
+            <div class="error-container" role="alert" aria-live="assertive">
+                <p class="error-message">{{ error$ | async }}</p>
+                <button (click)="onRetry()" class="retry-button" aria-label="Retry loading Pokemon">
                     Try Again
                 </button>
             </div>
-        </div>
+            }
 
-        <!-- Pokemon Grid -->
-        <div *ngIf="!(loading$ | async) && !(error$ | async)" class="pokemon-grid-container">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-8">
-                <app-pokemon-card *ngFor="let pokemon of pokemonList$ | async" [pokemon]="pokemon"
-                    (cardClick)="onCardClick($event)">
+            <!-- Pokemon Grid -->
+            @if (!(loading$ | async) && !(error$ | async)) {
+            <div class="grid">
+                @for (pokemon of pokemonList$ | async; track pokemon.id) {
+                <app-pokemon-card [pokemon]="pokemon" (cardClick)="onCardClick($event)">
                 </app-pokemon-card>
+                }
             </div>
 
             <!-- Pagination -->
-            <div class="pagination-container flex justify-center">
+            <div class="pagination-container">
                 <app-pagination [currentPage]="(currentPage$ | async) || 1" [totalPages]="(totalPages$ | async) || 15"
                     (pageChange)="onPageChange($event)">
                 </app-pagination>
             </div>
+            }
         </div>
-
-        <!-- Pokemon Detail Modal -->
-        <app-pokemon-detail [pokemon]="selectedPokemon$ | async" [visible]="(isDetailVisible$ | async) || false"
-            (close)="onDetailClose()">
-        </app-pokemon-detail>
     </div>
+
+    <!-- Pokemon Detail Modal -->
+    <app-pokemon-detail [visible]="(isDetailVisible$ | async) || false" (close)="onDetailClose()">
+    </app-pokemon-detail>
 </div>

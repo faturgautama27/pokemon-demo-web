@@ -1,71 +1,105 @@
-<p-dialog [(visible)]="visible" [modal]="true" [closable]="false" [draggable]="false" [resizable]="false"
-    [dismissableMask]="true" (onHide)="onHide()" [styleClass]="'pokemon-detail-dialog'"
+<!-- Simple Pokemon Detail Modal -->
+<p-dialog [(visible)]="visible" [modal]="true" [closable]="true" [closeOnEscape]="true" [draggable]="false"
+    [resizable]="false" [dismissableMask]="true" (onHide)="onHide()" [styleClass]="'pokemon-detail-dialog'"
     [contentStyleClass]="'pokemon-detail-content'" role="dialog" [attr.aria-modal]="true"
-    [attr.aria-labelledby]="'pokemon-detail-title'">
-    <ng-template pTemplate="header" *ngIf="pokemon">
-        <div class="flex items-center justify-between w-full" id="pokemon-detail-title">
-            <div class="flex items-center gap-3">
-                <span class="text-sm font-medium text-gray-500">#{{ pokemon.number }}</span>
-                <h2 class="text-2xl font-bold text-gray-900">{{ pokemon.name }}</h2>
-            </div>
-            <button type="button" class="close-button" (click)="onClose()" (keydown.enter)="onClose()"
-                (keydown.space)="onClose()" aria-label="Close dialog">
-                <lucide-angular [img]="X" [size]="20"></lucide-angular>
-            </button>
-        </div>
-    </ng-template>
+    [attr.aria-labelledby]="'pokemon-detail-title'" [showHeader]="false">
 
-    <div *ngIf="pokemon" class="pokemon-detail-body">
+    @if (pokemon | async; as pokemon) {
+    <!-- Header -->
+    <div class="dialog-header" id="pokemon-detail-title">
+        <div class="header-content">
+            <span class="pokemon-number">#{{ pokemon.number }}</span>
+            <h2 class="pokemon-title">{{ pokemon.name }}</h2>
+        </div>
+        <button type="button" class="close-button" (click)="onClose()" aria-label="Close dialog">
+            <lucide-angular [img]="X" [size]="24"></lucide-angular>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="pokemon-detail-body">
         <!-- Pokemon Image -->
-        <div class="flex justify-center mb-6">
-            <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="w-48 h-48 object-contain" />
+        <div class="image-section">
+            <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="pokemon-image" />
         </div>
 
-        <!-- Basic Info Section -->
-        <div class="basic-info-section mb-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">Basic Information</h3>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <span class="text-sm text-gray-500">Type</span>
-                    <div class="flex gap-2 mt-1">
-                        <span *ngFor="let type of pokemon.types"
-                            [class]="getTypeColorClass(type) + ' text-xs font-semibold text-white px-3 py-1 rounded-full'">
-                            {{ type }}
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <span class="text-sm text-gray-500">Weight</span>
-                    <p class="text-base font-medium text-gray-900 mt-1">{{ pokemon.weight / 10 }} kg</p>
-                </div>
-                <div>
-                    <span class="text-sm text-gray-500">Height</span>
-                    <p class="text-base font-medium text-gray-900 mt-1">{{ pokemon.height / 10 }} m</p>
-                </div>
+        <!-- Types -->
+        <div class="types-section">
+            @for (type of pokemon.types; track $index) {
+            <span [class]="'type-badge ' + getTypeColorClass(type)">
+                {{ type }}
+            </span>
+            }
+        </div>
+
+        <!-- Basic Info -->
+        <div class="info-section">
+            <div class="info-item">
+                <span class="info-label">Weight</span>
+                <span class="info-value">{{ pokemon.weight / 10 }} kg</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Height</span>
+                <span class="info-value">{{ pokemon.height / 10 }} m</span>
             </div>
         </div>
 
-        <!-- Abilities Section -->
-        <div class="abilities-section mb-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">Abilities</h3>
-            <div class="flex flex-wrap gap-2">
-                <span *ngFor="let ability of pokemon.abilities" class="ability-badge"
-                    [class.hidden-ability]="ability.isHidden">
+        <!-- Abilities -->
+        <div class="section">
+            <h3 class="section-title">Abilities</h3>
+            <ul class="abilities-list">
+                @for (ability of pokemon.abilities; track ability.name) {
+                <li class="ability-item">
                     {{ ability.name }}
-                    <span *ngIf="ability.isHidden" class="text-xs ml-1">(Hidden)</span>
-                </span>
-            </div>
+                    @if (ability.isHidden) {
+                    <span class="hidden-badge">Hidden</span>
+                    }
+                </li>
+                }
+            </ul>
         </div>
 
-        <!-- Moves Section -->
-        <div class="moves-section">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">Moves</h3>
-            <div class="moves-container">
-                <div class="move-item" *ngFor="let move of pokemon.moves">
-                    <span class="move-name">{{ move.name }}</span>
-                    <span class="move-method">{{ move.learnMethod }}</span>
+        <!-- Moves -->
+        <div class="section">
+            <h3 class="section-title">Moves</h3>
+            <div class="moves-list">
+                @for (move of pokemon.moves; track move.name) {
+                <div class="move-item">
+                    {{ move.name }}
                 </div>
+                }
             </div>
         </div>
     </div>
+    } @else {
+    <!-- Loading State -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="skeleton-text" style="width: 60px; height: 20px;"></div>
+            <div class="skeleton-text" style="width: 150px; height: 28px;"></div>
+        </div>
+        <button type="button" class="close-button" (click)="onClose()" aria-label="Close dialog">
+            <lucide-angular [img]="X" [size]="24"></lucide-angular>
+        </button>
+    </div>
+    <div class="pokemon-detail-body">
+        <div class="image-section">
+            <div class="skeleton-image-large"></div>
+        </div>
+        <div class="types-section">
+            <div class="skeleton-badge"></div>
+            <div class="skeleton-badge"></div>
+        </div>
+        <div class="info-section">
+            <div class="info-item">
+                <div class="skeleton-text" style="width: 60px; height: 16px; margin: 0 auto 8px;"></div>
+                <div class="skeleton-text" style="width: 80px; height: 24px; margin: 0 auto;"></div>
+            </div>
+            <div class="info-item">
+                <div class="skeleton-text" style="width: 60px; height: 16px; margin: 0 auto 8px;"></div>
+                <div class="skeleton-text" style="width: 80px; height: 24px; margin: 0 auto;"></div>
+            </div>
+        </div>
+    </div>
+    }
 </p-dialog>

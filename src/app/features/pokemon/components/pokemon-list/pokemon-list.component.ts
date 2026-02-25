@@ -36,6 +36,7 @@ export class PokemonListComponent implements OnInit {
     totalPages$: Observable<number>;
     selectedPokemon$: Observable<Pokemon | null>;
     isDetailVisible$: Observable<boolean>;
+    selectedType$: Observable<string | null>;
 
     constructor(private store: Store) {
         // Subscribe to Pokemon state selectors
@@ -46,6 +47,11 @@ export class PokemonListComponent implements OnInit {
         this.totalPages$ = this.store.select(PokemonSelectors.totalPages);
         this.selectedPokemon$ = this.store.select(PokemonSelectors.selectedPokemon);
         this.isDetailVisible$ = this.store.select(PokemonSelectors.isDetailVisible);
+        this.selectedType$ = this.store.select(PokemonSelectors.selectedType);
+
+        this.selectedPokemon$.subscribe((result) => {
+            console.log("selected pokemon =>", result);
+        })
     }
 
     ngOnInit(): void {
@@ -83,5 +89,17 @@ export class PokemonListComponent implements OnInit {
      */
     onRetry(): void {
         this.store.dispatch(new PokemonActions.RetryLoad());
+    }
+
+    /**
+     * Handle type filter selection
+     * Dispatches FilterByType or ClearFilter action
+     */
+    onFilterType(typeName: string | null): void {
+        if (typeName) {
+            this.store.dispatch(new PokemonActions.FilterByType(typeName));
+        } else {
+            this.store.dispatch(new PokemonActions.ClearFilter());
+        }
     }
 }
