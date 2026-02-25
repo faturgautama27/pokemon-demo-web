@@ -58,4 +58,19 @@ export namespace PokemonActions {
     export class RetryLoad {
         static readonly type = '[Pokemon] Retry Load';
     }
+
+    /**
+     * Filter Pokemon by type
+     */
+    export class FilterByType {
+        static readonly type = '[Pokemon] Filter By Type';
+        constructor(public typeName: string) { }
+    }
+
+    /**
+     * Clear type filter and show all Pokemon
+     */
+    export class ClearFilter {
+        static readonly type = '[Pokemon] Clear Filter';
+    }
 }

@@ -54,14 +54,11 @@ export class PokemonSelectors {
 
     /**
      * Get selected Pokemon for detail view
-     * Returns null if no Pokemon is selected
+     * Returns the Pokemon object stored in state
      */
     @Selector([PokemonState])
     static selectedPokemon(state: PokemonStateModel): Pokemon | null {
-        if (!state.selectedPokemonId) {
-            return null;
-        }
-        return state.pokemonList.find(p => p.id === state.selectedPokemonId) || null;
+        return state.selectedPokemon;
     }
 
     /**
@@ -70,5 +67,21 @@ export class PokemonSelectors {
     @Selector([PokemonState])
     static isDetailVisible(state: PokemonStateModel): boolean {
         return state.selectedPokemonId !== null;
+    }
+
+    /**
+     * Check if Pokemon detail is loading
+     */
+    @Selector([PokemonState])
+    static loadingDetail(state: PokemonStateModel): boolean {
+        return state.loadingDetail;
+    }
+
+    /**
+     * Get selected type filter
+     */
+    @Selector([PokemonState])
+    static selectedType(state: PokemonStateModel): string | null {
+        return state.selectedType;
     }
 }

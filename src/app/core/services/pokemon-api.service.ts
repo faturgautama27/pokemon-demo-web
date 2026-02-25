@@ -62,6 +62,33 @@ export class PokemonApiService {
     }
 
     /**
+     * Get Pokemon by type
+     * @param typeName - Type name (e.g., 'fire', 'water')
+     * @returns Observable of Pokemon basic info array (filtered to first 151)
+     */
+    getPokemonByType(typeName: string): Observable<PokemonBasic[]> {
+        const url = `${this.baseUrl}/type/${typeName.toLowerCase()}`;
+
+        return this.http.get<{ pokemon: Array<{ pokemon: PokemonBasic }> }>(url).pipe(
+            map(response => {
+                // Extract pokemon list and filter to first 151 (Kanto region)
+                return response.pokemon
+                    .map(p => p.pokemon)
+                    .filter(p => {
+                        const urlParts = p.url.split('/');
+                        const id = parseInt(urlParts[urlParts.length - 2]);
+                        return id <= 151;
+                    });
+            }),
+            retry({
+                count: 3,
+                delay: (error, retryCount) => this.getRetryDelay(retryCount)
+            }),
+            catchError(error => this.handleError(error))
+        );
+    }
+
+    /**
      * Fetch multiple Pokemon in parallel with throttling
      * @param ids - Array of Pokemon IDs
      * @returns Observable of Pokemon array
