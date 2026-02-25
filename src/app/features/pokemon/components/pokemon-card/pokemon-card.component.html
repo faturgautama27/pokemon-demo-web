@@ -1,35 +1,46 @@
 <div class="pokemon-card" role="button" tabindex="0" (click)="onClick()" (keydown)="onKeyDown($event)"
     [attr.aria-label]="'View details for ' + pokemon.name">
 
-    <!-- Pokemon Image -->
+    <!-- Card Corner Accent -->
+    <div class="card-corner top-left"></div>
+    <div class="card-corner top-right"></div>
+    <div class="card-corner bottom-left"></div>
+    <div class="card-corner bottom-right"></div>
+
+    <!-- Pokemon Number Badge -->
+    <div class="number-badge">#{{ pokemon.number }}</div>
+
+    <!-- Pokemon Image with Background -->
     <div class="image-container">
+        <div class="image-bg"></div>
         <img [src]="pokemon.imageUrl" [alt]="pokemon.name + ' - #' + pokemon.number" class="pokemon-image">
     </div>
 
-    <!-- Pokemon Number -->
-    <div class="pokemon-number">#{{ pokemon.number }}</div>
+    <!-- Pokemon Info -->
+    <div class="card-content">
+        <!-- Pokemon Name -->
+        <h3 class="pokemon-name">{{ pokemon.name }}</h3>
 
-    <!-- Pokemon Name -->
-    <h3 class="pokemon-name">{{ pokemon.name }}</h3>
-
-    <!-- Pokemon Types -->
-    <div class="types-container">
-        @for (type of pokemon.types; track $index) {
-        <span [class]="'type-badge type-' + type.toLowerCase()">
-            {{ type }}
-        </span>
-        }
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-container">
-        <div class="stat-item">
-            <span class="stat-label">Weight:</span>
-            <span class="stat-value">{{ pokemon.weight / 10 }} kg</span>
+        <!-- Pokemon Types -->
+        <div class="types-container">
+            @for (type of pokemon.types; track $index) {
+            <span [class]="'type-badge type-' + type.toLowerCase()">
+                {{ type }}
+            </span>
+            }
         </div>
-        <div class="stat-item">
-            <span class="stat-label">Height:</span>
-            <span class="stat-value">{{ pokemon.height / 10 }} m</span>
+
+        <!-- Stats -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-icon">⚖️</span>
+                <span class="stat-value">{{ pokemon.weight / 10 }}kg</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-icon">📏</span>
+                <span class="stat-value">{{ pokemon.height / 10 }}m</span>
+            </div>
         </div>
     </div>
 </div>

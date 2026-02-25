@@ -1,16 +1,15 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, inject, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { Pokemon } from '../../../../core/models/pokemon.model';
 import { Store } from '@ngxs/store';
 import { PokemonSelectors } from '../../store/pokemon.selectors';
 
 /**
  * PokemonDetailComponent
  * 
- * Simple modal dialog displaying Pokemon information.
- * Shows basic details, abilities, and moves in a clean layout.
+ * Pokedex-style modal dialog displaying Pokemon information.
+ * Shows detailed Pokemon data with modern, eye-catching design.
  */
 @Component({
     selector: 'app-pokemon-detail',
@@ -23,9 +22,7 @@ export class PokemonDetailComponent {
     @Input() visible: boolean = false;
     @Output() close = new EventEmitter<void>();
 
-    cdr = inject(ChangeDetectorRef);
     store = inject(Store);
-
     pokemon = this.store.select(PokemonSelectors.selectedPokemon);
 
     // Lucide icons
@@ -43,32 +40,5 @@ export class PokemonDetailComponent {
      */
     onHide(): void {
         this.close.emit();
-    }
-
-    /**
-     * Get background color class for Pokemon type
-     */
-    getTypeColorClass(type: string): string {
-        const typeColors: { [key: string]: string } = {
-            'normal': 'bg-gray-400',
-            'fire': 'bg-red-500',
-            'water': 'bg-blue-500',
-            'grass': 'bg-green-500',
-            'electric': 'bg-yellow-400',
-            'ice': 'bg-cyan-300',
-            'fighting': 'bg-red-700',
-            'poison': 'bg-purple-500',
-            'ground': 'bg-yellow-600',
-            'flying': 'bg-indigo-400',
-            'psychic': 'bg-pink-500',
-            'bug': 'bg-lime-500',
-            'rock': 'bg-yellow-800',
-            'ghost': 'bg-purple-700',
-            'dragon': 'bg-indigo-700',
-            'dark': 'bg-gray-800',
-            'steel': 'bg-gray-500',
-            'fairy': 'bg-pink-300'
-        };
-        return typeColors[type.toLowerCase()] || 'bg-gray-400';
     }
 }

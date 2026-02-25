@@ -1,15 +1,18 @@
-<!-- Simple Pokemon Detail Modal -->
+<!-- Pokemon Detail Modal - Pokedex Style -->
 <p-dialog [(visible)]="visible" [modal]="true" [closable]="true" [closeOnEscape]="true" [draggable]="false"
     [resizable]="false" [dismissableMask]="true" (onHide)="onHide()" [styleClass]="'pokemon-detail-dialog'"
     [contentStyleClass]="'pokemon-detail-content'" role="dialog" [attr.aria-modal]="true"
     [attr.aria-labelledby]="'pokemon-detail-title'" [showHeader]="false">
 
     @if (pokemon | async; as pokemon) {
-    <!-- Header -->
+    <!-- Header with Pokedex Style -->
     <div class="dialog-header" id="pokemon-detail-title">
-        <div class="header-content">
-            <span class="pokemon-number">#{{ pokemon.number }}</span>
-            <h2 class="pokemon-title">{{ pokemon.name }}</h2>
+        <div class="header-left">
+            <div class="pokedex-indicator"></div>
+            <div class="header-info">
+                <span class="pokemon-number">#{{ pokemon.number }}</span>
+                <h2 class="pokemon-title">{{ pokemon.name }}</h2>
+            </div>
         </div>
         <button type="button" class="close-button" (click)="onClose()" aria-label="Close dialog">
             <lucide-angular [img]="X" [size]="24"></lucide-angular>
@@ -18,53 +21,71 @@
 
     <!-- Body -->
     <div class="pokemon-detail-body">
-        <!-- Pokemon Image -->
-        <div class="image-section">
-            <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="pokemon-image" />
-        </div>
-
-        <!-- Types -->
-        <div class="types-section">
-            @for (type of pokemon.types; track $index) {
-            <span [class]="'type-badge ' + getTypeColorClass(type)">
-                {{ type }}
-            </span>
-            }
-        </div>
-
-        <!-- Basic Info -->
-        <div class="info-section">
-            <div class="info-item">
-                <span class="info-label">Weight</span>
-                <span class="info-value">{{ pokemon.weight / 10 }} kg</span>
+        <!-- Main Display Section -->
+        <div class="main-display">
+            <!-- Pokemon Image -->
+            <div class="image-section">
+                <div class="screen-frame">
+                    <div class="screen-content">
+                        <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="pokemon-image" />
+                    </div>
+                </div>
             </div>
-            <div class="info-item">
-                <span class="info-label">Height</span>
-                <span class="info-value">{{ pokemon.height / 10 }} m</span>
+
+            <!-- Types -->
+            <div class="types-section">
+                <span class="section-label">Type</span>
+                <div class="types-list">
+                    @for (type of pokemon.types; track $index) {
+                    <span [class]="'type-badge type-' + type.toLowerCase()">
+                        {{ type }}
+                    </span>
+                    }
+                </div>
             </div>
         </div>
 
-        <!-- Abilities -->
-        <div class="section">
-            <h3 class="section-title">Abilities</h3>
-            <ul class="abilities-list">
+        <!-- Info Grid -->
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-content">
+                    <span class="info-label">Weight</span>
+                    <span class="info-value">{{ pokemon.weight / 10 }} kg</span>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-content">
+                    <span class="info-label">Height</span>
+                    <span class="info-value">{{ pokemon.height / 10 }} m</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Abilities Section -->
+        <div class="data-section">
+            <h3 class="section-title">
+                Abilities
+            </h3>
+            <div class="abilities-grid">
                 @for (ability of pokemon.abilities; track ability.name) {
-                <li class="ability-item">
-                    {{ ability.name }}
+                <div class="ability-card">
+                    <span class="ability-name">{{ ability.name }}</span>
                     @if (ability.isHidden) {
                     <span class="hidden-badge">Hidden</span>
                     }
-                </li>
+                </div>
                 }
-            </ul>
+            </div>
         </div>
 
-        <!-- Moves -->
-        <div class="section">
-            <h3 class="section-title">Moves</h3>
-            <div class="moves-list">
+        <!-- Moves Section -->
+        <div class="data-section">
+            <h3 class="section-title">
+                Moves
+            </h3>
+            <div class="moves-grid">
                 @for (move of pokemon.moves; track move.name) {
-                <div class="move-item">
+                <div class="move-chip">
                     {{ move.name }}
                 </div>
                 }
@@ -74,30 +95,40 @@
     } @else {
     <!-- Loading State -->
     <div class="dialog-header">
-        <div class="header-content">
-            <div class="skeleton-text" style="width: 60px; height: 20px;"></div>
-            <div class="skeleton-text" style="width: 150px; height: 28px;"></div>
+        <div class="header-left">
+            <div class="pokedex-indicator loading"></div>
+            <div class="header-info">
+                <div class="skeleton-text" style="width: 60px; height: 20px;"></div>
+                <div class="skeleton-text" style="width: 150px; height: 28px; margin-top: 4px;"></div>
+            </div>
         </div>
         <button type="button" class="close-button" (click)="onClose()" aria-label="Close dialog">
             <lucide-angular [img]="X" [size]="24"></lucide-angular>
         </button>
     </div>
     <div class="pokemon-detail-body">
-        <div class="image-section">
-            <div class="skeleton-image-large"></div>
-        </div>
-        <div class="types-section">
-            <div class="skeleton-badge"></div>
-            <div class="skeleton-badge"></div>
-        </div>
-        <div class="info-section">
-            <div class="info-item">
-                <div class="skeleton-text" style="width: 60px; height: 16px; margin: 0 auto 8px;"></div>
-                <div class="skeleton-text" style="width: 80px; height: 24px; margin: 0 auto;"></div>
+        <div class="main-display">
+            <div class="image-section">
+                <div class="screen-frame">
+                    <div class="screen-content">
+                        <div class="skeleton-image-large"></div>
+                    </div>
+                </div>
             </div>
-            <div class="info-item">
-                <div class="skeleton-text" style="width: 60px; height: 16px; margin: 0 auto 8px;"></div>
-                <div class="skeleton-text" style="width: 80px; height: 24px; margin: 0 auto;"></div>
+            <div class="types-section">
+                <span class="section-label">Type</span>
+                <div class="types-list">
+                    <div class="skeleton-badge"></div>
+                    <div class="skeleton-badge"></div>
+                </div>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="skeleton-text" style="width: 100%; height: 60px;"></div>
+            </div>
+            <div class="info-card">
+                <div class="skeleton-text" style="width: 100%; height: 60px;"></div>
             </div>
         </div>
     </div>
